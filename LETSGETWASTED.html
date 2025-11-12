@@ -772,6 +772,12 @@ input:checked + label:after {
 				New
 		</div>
 		<br>
+		<div id="div-ck-brainstorm">
+				<input id="ck-brainstorm" name="ck-brainstorm" type="checkbox"  />
+				<label for="ck-brainstorm"></label>
+				Brainstorm
+		</div>
+		<br>
 		<br>
 		<br>
 		</div>
@@ -1182,6 +1188,7 @@ window.addEventListener('beforeunload', function (e) {
 		const ckCards = document.getElementById('ck-cards');
 		const ckNew = document.getElementById('ck-new');
 		const ckJackpot = document.getElementById('ck-jackpot');
+		const ckBrainstorm = document.getElementById('ck-brainstorm');
 		
 		
 		var chkGame = 1;
@@ -1235,7 +1242,13 @@ window.addEventListener('beforeunload', function (e) {
 				
 			}
 			
-			if(rGame != '' && rGame != 'HOT' && rGame != 'CARDS' && rGame != 'NEW' && rGame != 'JACKPOT' && rGame != 'HORROR'){
+			if(!ckBrainstorm.checked && rGame == 'BRAINSTORM'){
+				chkGame=1;
+			}else{
+				
+			}
+			
+			if(rGame != '' && rGame != 'HOT' && rGame != 'CARDS' && rGame != 'NEW' && rGame != 'JACKPOT' && rGame != 'HORROR' && rGame != 'BRAINSTORM'){
 				chkGame=1;
 			}
 			
@@ -1409,6 +1422,7 @@ window.addEventListener('beforeunload', function (e) {
 			const cckCards = document.getElementById('ck-cards');
 			const cckNew = document.getElementById('ck-new');
 			const cckJackpot = document.getElementById('ck-jackpot');
+			const cckBrainstorm = document.getElementById('ck-brainstorm');
 			
 			
 			if(!$('#ck-language-ita').is(':checked') && !$('#ck-language-eng').is(':checked')){
@@ -1416,7 +1430,7 @@ window.addEventListener('beforeunload', function (e) {
 				return;
 			}
 			
-			if(cckNewGame.checked && !cckActions.checked && !cckHot.checked && !cckCards.checked && !cckNew.checked && !cckJackpot.checked){
+			if(cckNewGame.checked && !cckActions.checked && !cckHot.checked && !cckCards.checked && !cckNew.checked && !cckJackpot.checked && !cckBrainstorm.checked){
 				alert("SELECT ACTIONS");
 				return;
 			}
@@ -1756,6 +1770,7 @@ window.addEventListener('beforeunload', function (e) {
 			const cckCards = document.getElementById('ck-cards');
 			const cckNew = document.getElementById('ck-new');
 			const cckJackpot = document.getElementById('ck-jackpot');
+			const cckBrainstorm = document.getElementById('ck-brainstorm');
 
       localStorage.setItem("cacheAzioniPassate", JSON.stringify(azioniPassate));
       localStorage.setItem("cacheAudioArrayPassate", JSON.stringify(audioArrayPassate));
@@ -1768,7 +1783,8 @@ window.addEventListener('beforeunload', function (e) {
       localStorage.setItem("cacheChkCards", cckCards.checked);
       localStorage.setItem("cacheChkHot", cckHot.checked);
       localStorage.setItem("cacheChkNew", cckNew.checked);
-			localStorage.setItem("cacheChkJackpot", cckJackpot.checked);      
+			localStorage.setItem("cacheChkJackpot", cckJackpot.checked);
+			localStorage.setItem("cacheChkBrainstorm", cckBrainstorm.checked);
 
       
       //alert("Partita salvata nella cache!" + azioniPassate + " " + JSON.stringify(azioniPassate));
@@ -1784,6 +1800,7 @@ window.addEventListener('beforeunload', function (e) {
       console.log('cacheChkHot: ' + localStorage.getItem("cacheChkHot"));
       console.log('cacheChkNew: ' + localStorage.getItem("cacheChkNew"));
       console.log('cacheChkJackpot: ' + localStorage.getItem("cacheChkJackpot"));
+      console.log('cacheChkBrainstorm: ' + localStorage.getItem("cacheChkBrainstorm"));
     }
     
     function caricaPartita() {
@@ -1889,6 +1906,13 @@ window.addEventListener('beforeunload', function (e) {
 				console.log('jackpot ' + $('#ck-jackpot').is(':checked'));
 			}else{
 				$('#ck-jackpot').prop('checked', false);
+			}
+			
+			if(localStorage.getItem("cacheChkBrainstorm") === 'true'){
+				$('#ck-brainstorm').prop('checked', true);
+				console.log('brainstorm ' + $('#ck-brainstorm').is(':checked'));
+			}else{
+				$('#ck-brainstorm').prop('checked', false);
 			}
 			
     }
